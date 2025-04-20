@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 注册表单 -->
+    <div id="register-form" class="container">
+        <h1>用户注册</h1>
+        <form id="register" onsubmit="event.preventDefault(); showProfile();">
+            <label for="username">用户名:</label>
+            <input type="text" id="username" required>
+            <br>
+            <label for="email">邮箱:</label>
+            <input type="email" id="email" required>
+            <br>
+            <label for="password">密码:</label>
+            <input type="password" id="password" required>
+            <br>
+            <label for="risk_preference">风险偏好:</label>
+            <select id="risk_preference">
+                <option value="保守型">保守型</option>
+                <option value="稳健型">稳健型</option>
+                <option value="激进型">激进型</option>
+            </select>
+            <br>
+            <label for="investment_goal">投资目标:</label>
+            <select id="investment_goal">
+                <option value="短期收益">短期收益</option>
+                <option value="长期增长">长期增长</option>
+                <option value="资本保值">资本保值</option>
+            </select>
+            <br>
+            <button type="submit">注册</button>
+        </form>
+        <div class="link">
+            <a href="#" onclick="showLogin()">已经有账户? 登录</a>
+        </div>
+    </div>
+
+    <!-- 登录表单 -->
+    <div id="login-form" class="container" style="display:none;">
+        <h1>用户登录</h1>
+        <form id="login" onsubmit="event.preventDefault(); showProfile();">
+            <label for="login-email">邮箱:</label>
+            <input type="email" id="login-email" required>
+            <br>
+            <label for="login-password">密码:</label>
+            <input type="password" id="login-password" required>
+            <br>
+            <button type="submit">登录</button>
+        </form>
+        <div class="link">
+            <a href="#" onclick="showRegister()">没有账户? 注册</a>
+        </div>
+    </div>
+
+    <!-- 个人资料页面 -->
+    <div id="profile-page" style="display:none;">
+        <div class="container profile-info">
+            <h1>欢迎, <span id="profile-username"></span></h1>
+            <p>邮箱: <span id="profile-email"></span></p>
+            <p>风险偏好: <span id="profile-risk-preference"></span></p>
+            <p>投资目标: <span id="profile-investment-goal"></span></p>
+            <a href="#" class="link" onclick="showLogin()">退出</a>
+        </div>
+    </div>
+
+    <script>
+        // 切换到注册页面
+        function showRegister() {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("register-form").style.display = "block";
+        }
+
+        // 切换到登录页面
+        function showLogin() {
+            document.getElementById("register-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+        }
+
+        // 显示个人资料页面
+        function showProfile() {
+            const username = document.getElementById("username") ? document.getElementById("username").value : document.getElementById("login-email").value;
+            const email = document.getElementById("email") ? document.getElementById("email").value : document.getElementById("login-email").value;
+            const password = document.getElementById("password") ? document.getElementById("password").value : document.getElementById("login-password").value;
+            const riskPreference = document.getElementById("risk_preference") ? document.getElementById("risk_preference").value : "未知";
+            const investmentGoal = document.getElementById("investment_goal") ? document.getElementById("investment_goal").value : "未知";
+
+            document.getElementById("profile-username").textContent = username;
+            document.getElementById("profile-email").textContent = email;
+            document.getElementById("profile-risk-preference").textContent = riskPreference;
+            document.getElementById("profile-investment-goal").textContent = investmentGoal;
+
+            document.getElementById("profile-page").style.display = "block";
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("register-form").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
